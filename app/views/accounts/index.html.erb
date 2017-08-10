@@ -1,0 +1,29 @@
+
+<h2>Account List</h2>
+
+<table>
+    
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Balance</th>
+            <th>Flags</th>
+            <th>Suspended?</th>
+        </tr>
+    </thead>
+    <tbody>
+            <% @accounts.each do |a| %>
+            <tr>
+                <td><%= a.id %></td>
+                <td><%= a.name %></td>
+                <td><%= a.category %></td>
+                <td><%= number_to_currency a.balance %></td>
+                <td><%= a.flags %></td>
+                <td><%= a.is_suspended %></td>
+            </tr>
+            <% end %>
+      
+    </tbody>
+</table>
