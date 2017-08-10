@@ -34,6 +34,8 @@ class Account < ApplicationRecord
         
         return if check_amount(amount).any?
         
+        return if check_account_suspension().any?
+        
         if  self.balance >= amount
             ActiveRecord::Base.transaction do
                 self.update!(balance: self.balance - amount)
@@ -48,7 +50,21 @@ class Account < ApplicationRecord
         end
     end
     
+    def clear_suspension
+        return if insufficent_funds
+          ActiveRecord::Base.transaction do
+                self.update!(balance: self.balance - 100, is_suspended: false)
+                Transaction.create!(amount: 100, category: 'Unfreeze' , account_id: self.id)
+            end
+        
+    end
+    
     private 
+    
+    def insufficent_funds
+     self.errors.add(:account, 'does not have insufficent funds') if self.balance <100
+     self.errors.any?
+    end
     
     def check_amount(amount)
     
@@ -66,6 +82,10 @@ class Account < ApplicationRecord
             self.update!(is_suspended: true, flags: 0)
         end
         
+    end
+    
+    def check_account_suspension()
+        self.errors.add(:is_suspended, 'account is suspended.') 
     end
     
 end
