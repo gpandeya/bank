@@ -13,8 +13,9 @@
 #
 # Configure Using Gemfile
 # gem 'pg'
-#
+#cd
 default: &default
+  template: template0
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
