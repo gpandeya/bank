@@ -85,7 +85,10 @@ class Account < ApplicationRecord
     end
     
     def check_account_suspension()
-        self.errors.add(:is_suspended, 'account is suspended.') 
+        if self.flags > 3
+            self.errors.add(:account, 'account is suspended.') 
+        end
+        self.errors
     end
     
 end

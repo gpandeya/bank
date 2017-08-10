@@ -1,9 +1,9 @@
 
-<h2>Account List</h2>
+<h2 class="display-4">Account List</h2>
 
-<table>
+<table class="table table-striped">
     
-    <thead>
+    <theadc class="thead-inverse">
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -17,7 +17,9 @@
             <% @accounts.each do |a| %>
             <tr>
                 <td><%= a.id %></td>
-                <td><%= a.name %></td>
+                <td>
+                    <%= link_to a.name,atm_account_path(a) %>
+                </td>
                 <td><%= a.category %></td>
                 <td><%= number_to_currency a.balance %></td>
                 <td><%= a.flags %></td>
